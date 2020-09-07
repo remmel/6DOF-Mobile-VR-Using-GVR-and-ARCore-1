@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="RequiredOptionalPreprocessBuild.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="RequiredOptionalPreprocessBuild.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,24 +26,18 @@ namespace GoogleARCoreInternal
     using UnityEditor.Build;
     using UnityEngine;
 
-    internal class RequiredOptionalPreprocessBuild : IPreprocessBuild
+    internal class RequiredOptionalPreprocessBuild : PreprocessBuildBase
     {
-        [SuppressMessage("UnityRules.UnityStyleRules", "US1000:FieldsMustBeUpperCamelCase",
-         Justification = "Overriden property.")]
-        public int callbackOrder
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public void OnPreprocessBuild(BuildTarget target, string path)
+        public override void OnPreprocessBuild(BuildTarget target, string path)
         {
             var isARCoreRequired = ARCoreProjectSettings.Instance.IsARCoreRequired;
 
-            Debug.LogFormat("Building application with {0} ARCore support.",
-                isARCoreRequired ? "REQUIRED" : "OPTIONAL");
+            Debug.LogFormat(
+                "Building \"{0}\" app. Use 'Edit > Project Settings > ARCore' to adjust " +
+                "ARCore SDK for Unity settings.\n" +
+                "See {1} for more information.",
+                isARCoreRequired ? "AR Required" : "AR Optional",
+                "https://developers.google.com/ar/develop/unity/enable-arcore");
 
             AssetHelper.GetPluginImporterByName("google_ar_required.aar")
                 .SetCompatibleWithPlatform(BuildTarget.Android, isARCoreRequired);
