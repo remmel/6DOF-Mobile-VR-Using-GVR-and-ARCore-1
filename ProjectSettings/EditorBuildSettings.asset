@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/scenes/positionvr 1.unity
+    path: Assets/Dodge/Scenes/positionvr 1.unity
     guid: ad9bdae5373c36545a5810ed186d1edb
   m_configObjects: {}
